@@ -1,0 +1,115 @@
+{
+  "name": "jira-vscode",
+  "displayName": "Jira Vscode",
+  "description": "An extension that allows your view and interact with Jira tickets",
+  "version": "0.0.1",
+  "publisher": "RMS",
+  "engines": {
+    "vscode": "^1.27.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.sayHello",
+    "onView:my-tickets"
+  ],
+  "main": "./src",
+  "contributes": {
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "jira-tree.openInJira",
+          "when": "view == my-tickets && viewItem == issue"
+        },
+        {
+          "command": "jira-tree.createFeatureBranch",
+          "when": "view == my-tickets && viewItem == issue"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "Jira Config",
+        "properties": {
+          "jiraConfig.branchPrefix": {
+            "type": "string",
+            "default": "mp"
+          },
+          "jiraConfig.host": {
+            "type": "string",
+            "default": ""
+          },
+          "jiraConfig.groupings": {
+            "type": "array",
+            "default": [
+              "status"
+            ]
+          },
+          "jiraConfig.username": {
+            "type": "string",
+            "default": ""
+          },
+          "jiraConfig.password": {
+            "type": "string",
+            "default": ""
+          },
+          "jiraConfig.protocol": {
+            "type": "string",
+            "default": "https"
+          },
+          "jiraConfig.apiVersion": {
+            "type": "string",
+            "default": "2"
+          },
+          "jiraConfig.strictSSL": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "jira-tree.openInJira",
+        "title": "Open in Jira"
+      },
+      {
+        "command": "jira-tree.createFeatureBranch",
+        "title": "Create Feature Branch"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jira-explorer",
+          "title": "Jira Explorer",
+          "icon": "resources/jira.svg"
+        }
+      ]
+    },
+    "views": {
+      "jira-explorer": [
+        {
+          "id": "my-tickets",
+          "name": "My Tickets"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21",
+    "eslint": "^4.11.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "jira-client": "^6.4.1",
+    "shelljs": "^0.8.2"
+  }
+}
